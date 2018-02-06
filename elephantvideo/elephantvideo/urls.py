@@ -21,4 +21,6 @@ from video import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('video/', views.home, name='home'),
+    path('companies/', views.companies, name='companies'),
+    path('channels/', views.channels, name='channels'),
 ]
