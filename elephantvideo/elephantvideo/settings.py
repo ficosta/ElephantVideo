@@ -25,7 +25,7 @@ SECRET_KEY = '(2q0p1z-u18c9%(%a^jjf!yrvz&9)^ly*v-25dxkzq(h69gr2a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['port-8000.django-felipeiasi221649.codeanyapp.com']
+ALLOWED_HOSTS = ['port-8080.elephant-felipeiasi221649.codeanyapp.com']
 
 
 # Application definition

@@ -1,4 +1,4 @@
-#!/home/cabox/workspace/ElephantVideo/venv/bin/python
+#!/home/cabox/workspace/elephantvideosite/venv/bin/python
 
 import sys
 import getopt

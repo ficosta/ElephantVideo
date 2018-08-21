@@ -9,40 +9,37 @@ COMPANY_STATUS_CHOICES = (
     (1, 'Habilitado'),
     (2, 'Demonstração'),
 )
+
 CHANNEL_STATUS_CHOICES = (
     (0, 'Desabilitado'),
     (1, 'Habilitado'),
 )
+
 LOG_EVENT_CHOICES = (
     (0, 'Informação'),
     (1, 'Erro'),
     (2, 'Aviso'),
 )
+
 NOTIFICATION_STYLE_CHOICES = (
     (0, 'Critical'),
     (1, 'Query'),
     (2, 'Warning'),
     (3, 'Information'),
 )
+
 PROFILE_ROLES_CHOICES = (
     (0, 'Espectador'),
     (1, 'Editor'),
     (2, 'Gerente'),
     (3, 'Administrador'),
 )
-BLOCK_RESOLUTION_CHOICES = (
-    (0, '4K'),
-    (1, 'HD 1080'),
-    (2, 'HD 720'),
-    (3, '480'),
-    (4, '360'),
-    (5, '270'),
-  
 
-)
-BLOCK_STATUS_CHOICES = (
+CLIP_STATUS_CHOICES = (
     (0, 'Indisponivel'),
-    (1, 'Disponivel'),
+    (1, 'Hires disponivel'),
+    (2, 'Lowres disponivel'),
+    (3, 'Hires e Lowres disponivel'),
 )
 
 # Create your models here.
@@ -71,9 +68,13 @@ class Clip(models.Model):
   channel = models.ForeignKey(Channel,on_delete=models.CASCADE, related_name='clips')
   recordDate = models.DateTimeField(null=True)
   length = models.PositiveSmallIntegerField(default=0)
-  posterURL = models.ImageField(upload_to='poster/')
-  thumbsURL = models.ImageField(upload_to='thumbs/')
-  
+  posterURL = models.ImageField(blank=True, upload_to='poster/')
+  thumbsURL = models.ImageField(blank=True, upload_to='thumbs/')
+  lowresURL = models.URLField(blank=True)
+  hiresURL = models.URLField(blank=True)
+  status = models.PositiveSmallIntegerField(choices=CLIP_STATUS_CHOICES, default=0)
+  #hora do upload
+
 class Log(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')
   event = models.PositiveSmallIntegerField(choices=LOG_EVENT_CHOICES, default=0)
@@ -86,18 +87,8 @@ class Notification(models.Model):
   style = models.PositiveSmallIntegerField(choices=NOTIFICATION_STYLE_CHOICES, default=0)
   createdAt = models.DateTimeField(auto_now_add=True)
   
-class Block(models.Model):
-  channel = models.ForeignKey(Channel,on_delete=models.CASCADE, related_name='blocks')
-  clip = models.ForeignKey(Clip,on_delete=models.CASCADE, related_name='clip')
-  resolution = models.PositiveSmallIntegerField(choices=BLOCK_RESOLUTION_CHOICES, default=3)
-  url = models.URLField(blank=False)
-  fileName = models.CharField(max_length=50, unique=True)
-  fileHash = models.CharField(max_length=50, unique=True)
-  sizeKB = models.PositiveIntegerField(default=0)
-  status = models.PositiveSmallIntegerField(choices=BLOCK_STATUS_CHOICES, default=1)
-  
 class Favorite(models.Model):
-  block = models.ForeignKey(Block, on_delete=models.CASCADE, related_name='favorites')
+  clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name='favorites')
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')
   frame = models.PositiveSmallIntegerField(default=0)
   description = models.CharField(max_length=250)
