@@ -28,7 +28,8 @@
           <h4 class="card-title">BUSCAR</h4>
         </div>
         <div class="card-body ">
-          <form action="{% url 'video:busca' %}" method="get">
+          <form method="post">
+            {% csrf_token %}
               <div class="row">
                   <div class="col-md-12">
                       <div class="form-group">

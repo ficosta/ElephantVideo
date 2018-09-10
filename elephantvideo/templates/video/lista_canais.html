@@ -8,8 +8,10 @@
         {% for channel in channels %}
         <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
           <div class="font-icon-detail">
+            <a href="{% url 'video:video' channel.slug %}">
             <img class="avatar border-gray" src="{{channel.logo.url}}" alt="...">
             <p>{{channel.name}}</p>
+            </a>
           </div>
         </div>
         {% empty %}

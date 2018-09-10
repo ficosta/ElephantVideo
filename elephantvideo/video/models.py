@@ -43,7 +43,7 @@ CLIP_STATUS_CHOICES = (
 )
 
 # Create your models here.
-  
+
 class Channel(models.Model):
   name = models.CharField(max_length=50, unique=True)
   slug = models.CharField(max_length=10, unique=True)
@@ -51,19 +51,19 @@ class Channel(models.Model):
   lowresLifetime = models.PositiveSmallIntegerField(default=0)
   logo = models.ImageField(upload_to='logo/', blank=True)
   status = models.PositiveSmallIntegerField(choices=CHANNEL_STATUS_CHOICES, default=0)
-  
+
   def __str__(self):
     return self.name
-  
+
 class Company(models.Model):
   name = models.CharField(max_length=50, unique=True)
   numberLicenses = models.PositiveSmallIntegerField(default=0)
   status = models.PositiveSmallIntegerField(choices=COMPANY_STATUS_CHOICES, default=0)
   channel = models.ManyToManyField(Channel)
-  
+
   def __str__(self):
     return self.name
-  
+
 class Clip(models.Model):
   channel = models.ForeignKey(Channel,on_delete=models.CASCADE, related_name='clips')
   recordDate = models.DateTimeField(null=True)
@@ -74,31 +74,33 @@ class Clip(models.Model):
   hiresURL = models.URLField(blank=True)
   status = models.PositiveSmallIntegerField(choices=CLIP_STATUS_CHOICES, default=0)
   #hora do upload
+  def __str__(self):
+      return self.channel.name
 
 class Log(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')
   event = models.PositiveSmallIntegerField(choices=LOG_EVENT_CHOICES, default=0)
   eventDescription = models.CharField(max_length=250)
   createdAt = models.DateTimeField(auto_now_add=True)
-  
+
 class Notification(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')
   description = models.CharField(max_length=250)
   style = models.PositiveSmallIntegerField(choices=NOTIFICATION_STYLE_CHOICES, default=0)
   createdAt = models.DateTimeField(auto_now_add=True)
-  
+
 class Favorite(models.Model):
   clip = models.ForeignKey(Clip, on_delete=models.CASCADE, related_name='favorites')
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')
   frame = models.PositiveSmallIntegerField(default=0)
   description = models.CharField(max_length=250)
-  
+
 #class Profile(models.Model):
 #  user = models.OneToOneField(User, on_delete=models.CASCADE)
 #  company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='companies')
 #  notifyByEmail = models.BooleanField()
-#  roles = models.PositiveSmallIntegerField(choices=PROFILE_ROLES_CHOICES, default=1)  
-# https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html 
+#  roles = models.PositiveSmallIntegerField(choices=PROFILE_ROLES_CHOICES, default=1)
+# https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html
 #https://gist.github.com/jacobian/827937
 
 #@receiver(post_save, sender=User)
@@ -109,5 +111,3 @@ class Favorite(models.Model):
 #@receiver(post_save, sender=User)
 #def save_user_profile(sender, instance, **kwargs):
 #    instance.profile.save()
-    
-  
