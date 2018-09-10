@@ -1,0 +1,35 @@
+{% extends "default.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Nome</th>
+            <th>HiRes</th>
+            <th>LowRes</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for channel in channels %}
+            <tr>
+              <td>
+                {{ channel.name }}
+              </td>
+              <td class="align-middle">{{ channel.hiresLifetime }}</td>
+              <td class="align-middle">{{ channel.lowresLifetime }}</td>
+              <td class="align-middle">
+                {% if channel.status %}
+                   <span class="badge badge-success">Habilitado</span>
+                {% else %}
+                   <span class="badge badge-primary">Desabilitado</span>
+                {% endif %}
+              </td>
+              <td></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}

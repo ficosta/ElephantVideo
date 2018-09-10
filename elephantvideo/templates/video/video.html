@@ -1,0 +1,56 @@
+{% extends "default.html" %}
+
+{% block content %}
+  <div class="col-md-9">
+    <div class="card ">
+      <div class="card-header ">
+        <h4 class="card-title">{{emissora}} - {{data}} - {{hora}}</h4>
+      </div>
+      <div class="card-body ">
+        <div align="center" class="embed-responsive embed-responsive-16by9">
+          <video autoplay loop class="embed-responsive-item" id="video" controls preload="auto">
+            <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" >
+            </video>
+          </div>
+        </div>
+        <div class="card-footer">
+
+
+              <button type="button" id="play-pause" class="btn btn-danger"><i class="fas fa-play"></i></button>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card ">
+        <div class="card-header ">
+          <h4 class="card-title">BUSCAR</h4>
+        </div>
+        <div class="card-body ">
+          <form action="{% url 'video:busca' %}" method="get">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label>Dia</label>
+                          <input type="date" class="form-control" value="{% now "Y-m-d" %}">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label>Hora</label>
+                          <input type="time" class="form-control" value="{% now "H:i" %}">
+                      </div>
+                  </div>
+              </div>
+              <button type="submit" class="btn btn-danger btn-fill pull-right"><i class="fas fa-search"></i> Buscar</button>
+              <div class="clearfix"></div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {% endblock %}

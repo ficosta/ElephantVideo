@@ -1,0 +1,27 @@
+{% extends "default.html" %}
+
+{% block content %}
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-body all-icons">
+      <div class="row">
+        {% for channel in channels %}
+        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+          <div class="font-icon-detail">
+            <img class="avatar border-gray" src="{{channel.logo.url}}" alt="...">
+            <p>{{channel.name}}</p>
+          </div>
+        </div>
+        {% empty %}
+        <h2>Atualmente você não possui acesso assistir aos canais.</h2>
+        {% endfor %}
+
+
+        <div class="font-icon-list col-lg-2 col-md-3 col-sm-4 col-6">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

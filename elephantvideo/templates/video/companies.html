@@ -1,0 +1,34 @@
+{% extends "default.html" %}
+
+{% block content %}
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Nome</th>
+            <th>Licenças</th>
+            <th>Canais disponiveis</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for company in companies %}
+            <tr>
+              <td>
+                {{ company.name }}
+              </td>
+              <td class="align-middle">{{ company.numberLicenses }}</td>
+              <td class="align-middle">{{ company.channel }}</td>
+              <td class="align-middle">
+                {% if company.status == 1 %}
+                   <span class="badge badge-success">Habilitado</span>
+                {% elif company.status == 0 %}
+                   <span class="badge badge-primary">Desabilitado</span>
+                 {% elif company.status == 2 %}
+                   <span class="badge badge-warning">Demonstração</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}
