@@ -75,7 +75,7 @@ class Clip(models.Model):
   status = models.PositiveSmallIntegerField(choices=CLIP_STATUS_CHOICES, default=0)
   #hora do upload
   def __str__(self):
-      return self.channel.name
+      return str(self.id) + str(self.channel.name) + str(self.recordDate)
 
 class Log(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='+')

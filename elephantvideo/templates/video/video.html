@@ -4,7 +4,8 @@
   <div class="col-md-9">
     <div class="card ">
       <div class="card-header ">
-        <h4 class="card-title">{{emissora}} - {{data}} - {{hora}}</h4>
+        <h4 class="card-title">{{clip.channel.name}}</h4>
+        <p class="card-category">{{clip.recordDate}}</p>
       </div>
       <div class="card-body ">
         <div align="center" class="embed-responsive embed-responsive-16by9">
@@ -14,11 +15,7 @@
           </div>
         </div>
         <div class="card-footer">
-
-
               <button type="button" id="play-pause" class="btn btn-danger"><i class="fas fa-play"></i></button>
-
-
         </div>
       </div>
     </div>
@@ -34,7 +31,11 @@
                   <div class="col-md-12">
                       <div class="form-group">
                           <label>Dia</label>
-                          <input type="date" class="form-control" value="{% now "Y-m-d" %}">
+                          {% if date %}
+                          <input type="date" name="date" class="form-control" value="{{ date }}">
+                          {% else %}
+                            <input type="date" name="date" class="form-control" value="{% now "Y-m-d" %}">
+                          {% endif %}
                       </div>
                   </div>
               </div>
@@ -42,7 +43,11 @@
                   <div class="col-md-12">
                       <div class="form-group">
                           <label>Hora</label>
-                          <input type="time" class="form-control" value="{% now "H:i" %}">
+                          {% if time %}
+                          <input type="time" name="time" class="form-control" value="{{ time }}">
+                          {% else %}
+                            <input type="time" name="time" class="form-control" value="{% now "H:i" %}">
+                          {% endif %}
                       </div>
                   </div>
               </div>
@@ -53,5 +58,8 @@
 
       </div>
     </div>
+  </div>
+  <div class="row">
+    <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
   </div>
   {% endblock %}
