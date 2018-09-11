@@ -7,8 +7,8 @@
         <thead class="thead-inverse">
           <tr>
             <th>Nome</th>
-            <th>HiRes</th>
-            <th>LowRes</th>
+            <th>HiRes lifetime</th>
+            <th>LowRes lifetime</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -18,9 +18,9 @@
               <td>
                 {{ channel.name }}
               </td>
-              <td class="align-middle">{{ channel.hiresLifetime }}</td>
-              <td class="align-middle">{{ channel.lowresLifetime }}</td>
-              <td class="align-middle">
+              <td>{{ channel.hiresLifetime }}</td>
+              <td>{{ channel.lowresLifetime }}</td>
+              <td>
                 {% if channel.status %}
                    <span class="badge badge-success">Habilitado</span>
                 {% else %}

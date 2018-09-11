@@ -17,7 +17,11 @@
                 {{ company.name }}
               </td>
               <td class="align-middle">{{ company.numberLicenses }}</td>
-              <td class="align-middle">{{ company.channel }}</td>
+              <td class="align-middle">
+                {% for channel in company.channel.all %}
+                      <span class="badge badge-info"> {{channel.slug}}</span>
+                {% endfor %}
+              </td>
               <td class="align-middle">
                 {% if company.status == 1 %}
                    <span class="badge badge-success">Habilitado</span>
