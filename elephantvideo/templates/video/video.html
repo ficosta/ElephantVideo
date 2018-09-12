@@ -1,4 +1,16 @@
 {% extends "default.html" %}
+{% load static %}
+{% block css %}
+  <link href="https://vjs.zencdn.net/7.1.0/video-js.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/rangeslider.css' %}"/>
+{% endblock %}
+{% block js %}
+<script src="https://vjs.zencdn.net/7.1.0/video.js"></script>
+ <!-- rangeslider -->
+<script src="{% static 'js/rangeslider.js' %}"></script>
+<script src="{% static 'js/video.js' %}"></script>
+<!--  <script src="{% static 'js/video-js/5.8.7/video.js' %}"></script> -->
+{% endblock %}
 
 {% block content %}
   <div class="col-md-9">
@@ -8,10 +20,12 @@
         <p class="card-category">{{clip.recordDate}}</p>
       </div>
       <div class="card-body ">
-        <div align="center" class="embed-responsive embed-responsive-16by9">
-          <video autoplay class="embed-responsive-item" id="video" controls preload="auto">
-            <source src="{{ clip.lowresURL }}" type="video/mp4" >
-            </video>
+        <div align="center" >
+
+          <video id="preview-player" class="video-js vjs-default-skin" controls preload="auto" poster="http://vjs.zencdn.net/v/oceans.png" data-setup='{"fluid": true, "autoplay": false, "preload": "auto"}'>
+              <source src="{{ clip.lowresURL }}" type="video/mp4" >
+              <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          </video>
           </div>
         </div>
         <div class="card-footer">

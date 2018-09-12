@@ -20,9 +20,9 @@ def video(request, channel=None, date=None, time=None):
 
             diaHora= datetime.strptime(('{} {}'.format(date,time)), "%Y-%m-%d %H:%M").strftime("%Y-%m-%d %H:%M:%S")
             print(diaHora)
-            clip = Clip.objects.filter(channel__slug=channel,recordDate__lte=diaHora).first()
+            clip = Clip.objects.filter(channel__slug=channel,recordDate__lte=diaHora).order_by('-recordDate').first()
         else:
-            clip = Clip.objects.filter(channel__slug=channel).first()
+            clip = Clip.objects.filter(channel__slug=channel).order_by('-recordDate').first()
     print(request)
     return render(request, 'video/video.html', {'title': 'Player','clip':clip,'date':date,'time':time})
 

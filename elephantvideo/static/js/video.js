@@ -1,59 +1,58 @@
-window.onload = function() {
+//Example of options ={hidden:false,locked:true,panel:false}
+var options = { hidden:false, responsive: true, width: 1600, height: 900 }
 
-  // Video
-  var video = document.getElementById("video");
-
-  // Buttons
-  var playButton = document.getElementById("play-pause");
-  var muteButton = document.getElementById("mute");
-
-  // Sliders
-  //var seekBar = document.getElementById("seek-bar");
-  var volumeBar = document.getElementById("volume-bar");
-
-
-// Event listener for the play/pause button
-playButton.addEventListener("click", function() {
-  if (video.paused == true) {
-    // Play the video
-    video.play();
-
-    // Update the button text to 'Pause'
-    playButton.innerHTML = "<i class=\"fas fa-pause\"></i>";
-  } else {
-    // Pause the video
-    video.pause();
-
-    // Update the button text to 'Play'
-    playButton.innerHTML = "<i class=\"fas fa-play\"></i>";
-  }
-});
-
-// Event listener for the seek bar
-seekBar.addEventListener("change", function() {
-  // Calculate the new time
-  var time = video.duration * (seekBar.value / 100);
-
-  // Update the video time
-  video.currentTime = time;
-});
-
-// Update the seek bar as the video plays
-//video.addEventListener("timeupdate", function() {
-  // Calculate the slider value
-//  var value = (100 / video.duration) * video.currentTime;
-
-  // Update the slider value
-//  seekBar.value = value;
-//});
-
-// Pause the video when the slider handle is being dragged
-seekBar.addEventListener("mousedown", function() {
-  video.pause();
-});
-
-// Play the video when the slider handle is dropped
-seekBar.addEventListener("mouseup", function() {
-  video.play();
-});
+function initVideoJS(){
+    mplayer=videojs("preview-player");
+    mplayer.rangeslider(options);
 }
+
+function playBetween(){
+    var start,end;
+    start = document.getElementById('Start').value;
+    end = document.getElementById('End').value;
+    mplayer.playBetween(start,end);
+}
+function loopBetween() {
+    var start = document.getElementById('Start').value;
+    var end = document.getElementById('End').value;
+    mplayer.loopBetween(start, end);
+}
+function getValues(){
+    var values = mplayer.getValueSlider();
+    console.log(values);
+    document.getElementById('Start').value=videojs.round(values.start,2);
+    document.getElementById('End').value=videojs.round(values.end,2);
+}
+
+function showhide(){
+    var plugin=mplayer.rangeslider.options;
+    if(plugin.hidden)
+        mplayer.showSlider();
+    else
+        mplayer.hideSlider();
+}
+function lockunlock(){
+    var plugin=mplayer.rangeslider.options;
+    if(plugin.locked)
+        mplayer.unlockSlider();
+    else
+        mplayer.lockSlider();
+}
+function showhidePanel(){
+    var plugin=mplayer.rangeslider.options;
+    if(!plugin.panel)
+        mplayer.showSliderPanel();
+    else
+        mplayer.hideSliderPanel();
+}
+function showhideControlTime(){
+    var plugin=mplayer.rangeslider.options;
+    if(!plugin.controlTime)
+        mplayer.showControlTime();
+    else
+        mplayer.hideControlTime();
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    initVideoJS();
+});
